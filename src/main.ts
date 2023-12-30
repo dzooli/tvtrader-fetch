@@ -8,6 +8,7 @@ import helmet from 'helmet';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
+import { HttpStatusInterceptor } from './interceptors/http-status/http-status.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -19,6 +20,8 @@ async function bootstrap() {
   });
   // Data validation
   app.useGlobalPipes(new ValidationPipe());
+  // Global interceptors
+  app.useGlobalInterceptors(new HttpStatusInterceptor());
   // Secure headers
   app.use(helmet());
 
