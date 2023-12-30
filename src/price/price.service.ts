@@ -18,8 +18,6 @@ export class PriceService {
         count: amount,
         prices: [
           {
-            broker: broker,
-            ticker: ticker,
             timeframe: tf.toString(),
             open: 1,
             close: 1.1,
