@@ -11,11 +11,17 @@ import { map } from 'rxjs/operators';
 export class PriceExtenderInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const req = context.getArgByIndex(0);
-    const broker = req.query.broker ? req.query.broker : 'UNDEF';
-    const ticker = req.query.ticker ? req.query.ticker : 'UNDEF';
     return next
       .handle()
-      .pipe(map((result) => this.extend(result, broker, ticker)));
+      .pipe(
+        map((result) =>
+          this.extend(
+            result,
+            req.query.broker ? req.query.broker : 'UNDEF',
+            req.query.ticker ? req.query.ticker : 'UNDEF',
+          ),
+        ),
+      );
   }
 
   extend(res: any, broker: string, ticker: string) {
