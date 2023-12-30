@@ -4,7 +4,7 @@ import {
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 @Injectable()
@@ -13,11 +13,14 @@ export class HttpStatusInterceptor implements NestInterceptor {
     const res = context.getArgByIndex(1);
     return next.handle().pipe(
       map((value) => {
-        return { ...value, statusCode: res.statusCode };
+        return {
+          ...value,
+          statusCode: res.statusCode,
+          status: res.statusCode < 400 ? 'OK' : 'ERROR',
+        };
       }),
       catchError((err) => {
-        if (!res.statusCode) return { ...err, statusCode: res.statusCode };
-        else return err;
+        return throwError(() => err);
       }),
     );
   }
