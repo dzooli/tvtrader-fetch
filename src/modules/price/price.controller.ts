@@ -14,7 +14,7 @@ import {
 } from '@nestjs/common';
 import { PriceService } from './price.service';
 import { ApiTags } from '@nestjs/swagger';
-import { Timeframes } from '../types/types.module';
+import { Timeframes } from '../../types/types.module';
 import { TimeoutInterceptor } from 'src/interceptors/timeout/timeout.interceptor';
 import { PriceExtenderInterceptor } from 'src/interceptors/price-extender/price-extender.interceptor';
 

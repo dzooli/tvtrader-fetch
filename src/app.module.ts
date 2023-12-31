@@ -6,12 +6,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PriceService } from './price/price.service';
-import { PriceController } from './price/price.controller';
+import { PriceService } from './modules/price/price.service';
+import { PriceController } from './modules/price/price.controller';
 import { TypesModule } from './types/types.module';
+import { PriceModule } from './modules/price/price.module';
 
 @Module({
-  imports: [TypesModule],
+  imports: [TypesModule, PriceModule],
   controllers: [AppController, PriceController],
   providers: [AppService, PriceService],
 })
