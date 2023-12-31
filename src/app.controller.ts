@@ -3,18 +3,18 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, VERSION_NEUTRAL } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiTags } from '@nestjs/swagger';
 
 @Controller({
-  version: '1',
+  version: VERSION_NEUTRAL,
 })
 @ApiTags('default')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get('/health')
+  @Get('/ping')
   getHealth(): string {
     return this.appService.getHealth();
   }

@@ -8,6 +8,6 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class AppService {
   getHealth(): string {
-    return 'Hello from Tv2Influx!';
+    return 'Pong from Tv2Influx!';
   }
 }

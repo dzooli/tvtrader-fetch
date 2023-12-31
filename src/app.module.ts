@@ -10,9 +10,10 @@ import { PriceService } from './modules/price/price.service';
 import { PriceController } from './modules/price/price.controller';
 import { TypesModule } from './types/types.module';
 import { PriceModule } from './modules/price/price.module';
+import { HealthModule } from './modules/health/health.module';
 
 @Module({
-  imports: [TypesModule, PriceModule],
+  imports: [TypesModule, PriceModule, HealthModule],
   controllers: [AppController, PriceController],
   providers: [AppService, PriceService],
 })
