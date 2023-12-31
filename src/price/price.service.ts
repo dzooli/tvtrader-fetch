@@ -4,6 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { Injectable } from '@nestjs/common';
+import { PriceResponse } from 'src/interfaces/price-response/price-response.interface';
 
 @Injectable()
 export class PriceService {
@@ -12,13 +13,12 @@ export class PriceService {
     ticker: string,
     tf: string | number,
     amount: number,
-  ) {
+  ): Promise<PriceResponse> {
     return {
       result: {
         count: amount,
         prices: [
           {
-            timeframe: tf.toString(),
             open: 1,
             close: 1.1,
             high: 1.11,
