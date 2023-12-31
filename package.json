@@ -1,10 +1,10 @@
 {
   "name": "tradingview-influx-service",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Microservice to fetch price quotes from TradingView and transpose to an InfluxDB-processible JSON format.",
+  "author": "Zoltan Fabian <zoltan.dzooli.fabian@gmail.com>",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -18,7 +18,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "docgen": "npx @compodoc/compodoc -p tsconfig.json -s"
+    "docgen": "npx @compodoc/compodoc -p tsconfig.doc.json -s"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
