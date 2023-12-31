@@ -8,8 +8,18 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+/**
+ * Intercept the response and add tags and measurement column to easy import to InfluxDB.
+ */
 @Injectable()
 export class PriceExtenderInterceptor implements NestInterceptor {
+  /**
+   * The interceptor function itself
+   *
+   * @param context Interceptor execution context
+   * @param next Next handler
+   * @returns The response Observable
+   */
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const req = context.getArgByIndex(0);
     return next
@@ -26,6 +36,22 @@ export class PriceExtenderInterceptor implements NestInterceptor {
       );
   }
 
+  /**
+   * Add tags and necessary columns for the price data in the response
+   *
+   * Additional fields for each price data:
+   *  - broker
+   *  - ticker
+   *  - timeframe
+   *  - measurement name
+   *
+   * @param res The response for processing
+   * @param broker Broker from query string
+   * @param ticker Ticker from query string
+   * @param timeframe Timeframe from query string
+   * @returns A response with extended price information
+   * @throws NotFoundException when price data is not in the input response
+   */
   extend(res: any, broker: string, ticker: string, timeframe: string) {
     const extended: object[] = [];
     const prices = res.result?.prices;
