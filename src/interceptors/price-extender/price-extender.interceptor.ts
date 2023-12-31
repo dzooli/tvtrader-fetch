@@ -3,6 +3,7 @@ import {
   ExecutionContext,
   Injectable,
   NestInterceptor,
+  NotFoundException,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -19,16 +20,31 @@ export class PriceExtenderInterceptor implements NestInterceptor {
             result,
             req.query.broker ? req.query.broker : 'UNDEF',
             req.query.ticker ? req.query.ticker : 'UNDEF',
+            req.query.timeframe ? req.query.timeframe : 'UNDEF',
           ),
         ),
       );
   }
 
-  extend(res: any, broker: string, ticker: string) {
+  extend(res: any, broker: string, ticker: string, timeframe: string) {
     const extended: object[] = [];
-    const prices = res.result.prices;
+    const prices = res.result?.prices;
+
+    if (!res.result?.count || !prices) {
+      throw new NotFoundException('Price data not found', {
+        cause: new Error(),
+        description: 'Price response is empty',
+      });
+    }
+
     for (const item of prices) {
-      extended.push({ ...item, broker: broker, ticker: ticker });
+      extended.push({
+        ...item,
+        broker: broker, // Influx Tag
+        ticker: ticker, // Influx Tag
+        timeframe: timeframe, // Influx Tag
+        measurement: 'price', // Influx measurementColumn
+      });
     }
     res.result.prices = extended;
     return res;
