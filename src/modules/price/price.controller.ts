@@ -35,7 +35,11 @@ export class PriceController {
     type: PriceResponse,
     description: 'Price response as JSON with metadata',
   })
-  @ApiResponse({ status: '4XX', description: 'Error fetching the prices' })
+  @ApiResponse({
+    status: '4XX',
+    description:
+      'Error fetching the prices due to invalid parameters or unavailable service',
+  })
   @ApiQuery({ name: 'timeframe', enum: Timeframes })
   async getPrice(
     @Query('broker') broker: string,

@@ -5,6 +5,9 @@ import {
   MemoryHealthIndicator,
 } from '@nestjs/terminus';
 
+/**
+ * The /healthcheck endpoint handler
+ */
 @Controller({
   path: '/healthcheck',
   version: VERSION_NEUTRAL,
@@ -15,6 +18,10 @@ export class HealthController {
     private memory: MemoryHealthIndicator,
   ) {}
 
+  /**
+   * 
+   * @returns A reponse with memory check. The heap limit is coming from the configuration file
+   */
   @Get()
   @HealthCheck()
   check() {
