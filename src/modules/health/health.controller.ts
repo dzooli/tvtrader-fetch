@@ -1,4 +1,5 @@
 import { Controller, Get, VERSION_NEUTRAL } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import {
   HealthCheck,
   HealthCheckService,
@@ -14,19 +15,24 @@ import {
 })
 export class HealthController {
   constructor(
+    private readonly configService: ConfigService,
     private health: HealthCheckService,
     private memory: MemoryHealthIndicator,
   ) {}
 
   /**
-   * 
+   *
    * @returns A reponse with memory check. The heap limit is coming from the configuration file
    */
   @Get()
   @HealthCheck()
   check() {
     return this.health.check([
-      () => this.memory.checkHeap('memory_heap', 200 * 1024 * 1024),
+      () =>
+        this.memory.checkHeap(
+          'memory_heap',
+          this.configService.get<number>('server.heaplimit', 200) * 1024 * 1024,
+        ),
     ]);
   }
 }
