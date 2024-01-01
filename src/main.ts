@@ -24,6 +24,8 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   // Secure headers
   app.use(helmet());
+  // CORS
+  app.enableCors();
 
   // Swagger UI
   const config = new DocumentBuilder()
