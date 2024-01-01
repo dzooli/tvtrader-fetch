@@ -20,7 +20,7 @@ export class JSONStatusInterceptor implements NestInterceptor {
     const res = context.getArgByIndex(1);
     return next.handle().pipe(
       map((value) => {
-        return JSON.stringify(value).startsWith('{')
+        return JSON.stringify(value)?.startsWith('{')
           ? {
               ...value,
               statusCode: res.statusCode,
@@ -29,14 +29,5 @@ export class JSONStatusInterceptor implements NestInterceptor {
           : value;
       }),
     );
-  }
-
-  isJSON(value: string): boolean {
-    try {
-      JSON.stringify(value);
-    } catch (err) {
-      return false;
-    }
-    return true;
   }
 }
