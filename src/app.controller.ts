@@ -5,12 +5,16 @@
 
 import { Controller, Get, VERSION_NEUTRAL } from '@nestjs/common';
 import { AppService } from './app.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @Controller({
   version: VERSION_NEUTRAL,
 })
 @ApiTags('default')
+@ApiResponse({
+  status: 'default',
+  description: 'Valid response, server is available',
+})
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
