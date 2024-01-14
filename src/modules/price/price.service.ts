@@ -4,27 +4,43 @@
 // https://opensource.org/licenses/MIT
 
 import { Injectable } from '@nestjs/common';
-import { PriceResponse } from 'src/interfaces/price-response/price-response.interface';
-
+import {
+  CandleData,
+  PriceResponse,
+} from 'src/interfaces/price-response/price-response.interface';
+import { connect, getCandles, Candle } from 'tradingview-ws';
+import { TradingviewTimeframe } from 'src/types/types.module';
 @Injectable()
 export class PriceService {
   async getPrices(
-    broker: string,
     ticker: string,
-    tf: string | number,
+    tf: TradingviewTimeframe,
     amount: number,
+    broker?: string,
   ): Promise<PriceResponse> {
+    const connection = await connect();
+    const prefix: string = broker ? broker + ':' : '';
+    console.log('Prefix is:', prefix);
+    const candles: Candle[][] = await getCandles({
+      connection,
+      symbols: [prefix + ticker],
+      amount: amount,
+      timeframe: tf,
+    });
+    const resultingCandles: Array<CandleData> = [];
+    candles[0].forEach((element) => {
+      resultingCandles.push({
+        ...element,
+        broker: '',
+        ticker: '',
+        timeframe: '',
+        measurement: '',
+      });
+    });
     return {
       result: {
-        count: amount,
-        prices: [
-          {
-            open: 1,
-            close: 1.1,
-            high: 1.11,
-            low: 0.99,
-          },
-        ],
+        count: resultingCandles.length,
+        prices: resultingCandles,
       },
     };
   }
