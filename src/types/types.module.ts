@@ -17,3 +17,5 @@ export enum Timeframes {
   d1 = '1D',
   w1 = '1W',
 }
+
+export type TradingviewTimeframe = number | '1D' | '1W' | '1M';
