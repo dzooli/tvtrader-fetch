@@ -32,7 +32,8 @@
     "helmet": "^7.1.0",
     "js-yaml": "^4.1.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "tradingview-ws": "^0.0.3"
   },
   "devDependencies": {
     "@compodoc/compodoc": "^1.1.23",
