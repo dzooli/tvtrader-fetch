@@ -13,8 +13,8 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { PriceService } from './price.service';
-import { ApiResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
-import { Timeframes } from '../../types/types.module';
+import { ApiResponse, ApiTags, ApiQuery } from '@nestjs/swagger';
+import { Timeframes, TradingviewTimeframe } from '../../types/types.module';
 import { TimeoutInterceptor } from 'src/interceptors/timeout/timeout.interceptor';
 import { PriceExtenderInterceptor } from 'src/interceptors/price-extender/price-extender.interceptor';
 import { PriceResponse } from 'src/interfaces/price-response/price-response.interface';
@@ -30,6 +30,10 @@ export class PriceController {
 
   @Get()
   @ApiTags('price')
+  @ApiQuery({ name: 'timeframe', enum: Timeframes, example: '1D' })
+  @ApiQuery({ name: 'broker', required: false, example: 'FX' })
+  @ApiQuery({ name: 'ticker', example: 'GBPUSD' })
+  @ApiQuery({ name: 'amount', example: 10 })
   @ApiResponse({
     status: 'default',
     type: PriceResponse,
@@ -40,16 +44,16 @@ export class PriceController {
     description:
       'Error fetching the prices due to invalid parameters or unavailable service',
   })
-  @ApiQuery({ name: 'timeframe', enum: Timeframes })
   async getPrice(
-    @Query('broker') broker: string,
+    @Query('timeframe', new ParseEnumPipe(Timeframes))
+    timeframe: TradingviewTimeframe,
     @Query('ticker') ticker: string,
-    @Query('timeframe', new ParseEnumPipe(Timeframes)) timeframe: string,
-    @Query('amount', ParseIntPipe) amount: number,
+    @Query('amount', ParseIntPipe) amount: number = 10,
+    @Query('broker') broker?: string,
   ): Promise<PriceResponse> {
-    if (broker && ticker && timeframe && amount) {
+    if (ticker && timeframe && amount) {
       const res: Promise<any> = Promise.resolve(
-        this.priceService.getPrices(broker, ticker, timeframe, amount),
+        this.priceService.getPrices(ticker, timeframe, amount, broker),
       );
       return await res;
     }
