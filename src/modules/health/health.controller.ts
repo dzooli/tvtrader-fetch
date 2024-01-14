@@ -18,11 +18,11 @@ export class HealthController {
     private readonly configService: ConfigService,
     private health: HealthCheckService,
     private memory: MemoryHealthIndicator,
-  ) {}
+  ) { }
 
   /**
    *
-   * @returns A reponse with memory check. The heap limit is coming from the configuration file
+   * @returns A response with memory check. The heap limit is coming from the configuration file
    */
   @Get()
   @HealthCheck()
