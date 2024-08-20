@@ -36,7 +36,7 @@
     "tradingview-ws": "^0.0.3"
   },
   "devDependencies": {
-    "@compodoc/compodoc": "^1.1.23",
+    "@compodoc/compodoc": "^1.1.25",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.3.0",
