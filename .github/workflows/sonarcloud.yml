@@ -30,6 +30,9 @@ permissions:
 
 jobs:
   sonarcloud:
+    permissions:
+      contents: read
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
