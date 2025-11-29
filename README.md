@@ -1,3 +1,13 @@
+# TvTrader-Fetch
+
+[![SonarCloud analysis](https://github.com/dzooli/tvtrader-fetch/actions/workflows/sonarcloud.yml/badge.svg?branch=master)](https://github.com/dzooli/tvtrader-fetch/actions/workflows/sonarcloud.yml)
+
+## Description
+
+Fetches the prices to an InfluxDB.
+
+---
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
