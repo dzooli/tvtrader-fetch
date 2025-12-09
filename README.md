@@ -1,7 +1,5 @@
 # TvTrader-Fetch
 
-[![SonarCloud analysis](https://github.com/dzooli/tvtrader-fetch/actions/workflows/sonarcloud.yml/badge.svg?branch=master)](https://github.com/dzooli/tvtrader-fetch/actions/workflows/sonarcloud.yml)
-
 ## Description
 
 A REST service to fetch historical price data from TradingView.
