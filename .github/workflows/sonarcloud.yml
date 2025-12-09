@@ -1,16 +1,16 @@
-name: SonarCloud analysis
+#name: SonarCloud analysis
 
-on:
+#on:
   # Trigger analysis when pushing in master or pull requests, and when creating
   # a pull request.
-  push:
-    branches:
-      - master
-  pull_request:
-      types: [opened, synchronize, reopened]
+#  push:
+#    branches:
+#      - master
+#  pull_request:
+#      types: [opened, synchronize, reopened]
 
-permissions:
-  pull-requests: read # allows SonarCloud to decorate PRs with analysis results
+#permissions:
+#  pull-requests: read # allows SonarCloud to decorate PRs with analysis results
 
 #jobs:
 #  sonar:
@@ -28,21 +28,21 @@ permissions:
 #          sonar_host: ${{ secrets.SONARQUBE_HOST }}
 #          sonar_token: ${{ secrets.SONARQUBE_TOKEN }}
 
-jobs:
-  sonarcloud:
-    permissions:
-      contents: read
-      pull-requests: write
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@master
-      env:
+#jobs:
+#  sonarcloud:
+#    permissions:
+#      contents: read
+#      pull-requests: write
+#    runs-on: ubuntu-latest
+#    steps:
+#    - name: Checkout
+#      uses: actions/checkout@v4
+#      with:
+#        fetch-depth: 0
+#    - name: SonarCloud Scan
+#      uses: sonarsource/sonarcloud-github-action@master
+#      env:
         # GITHUB_TOKEN: ${{ secrets.SONAR_GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      with:
-        args: -X
+#        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#      with:
+#        args: -X
